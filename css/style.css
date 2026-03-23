@@ -1,0 +1,234 @@
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+
+img {
+  display: block;
+}
+
+/* ── Centered image ── */
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.scene {
+  position: relative;
+  width: 80%;
+}
+
+.scene img {
+  width: 100%;
+  height: auto;
+  transition: filter 0.4s, opacity 0.4s;
+}
+
+.scene.dimmed img {
+  filter: blur(12px);
+  opacity: 0.3;
+}
+
+/* ── Hotspot ── */
+.hotspot {
+  position: absolute;
+  cursor: pointer;
+}
+
+/* ── Tooltip ── */
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  z-index: 1000;
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: calc(40vw * 0.6);
+  background: #030A13;
+  border-radius: 24px;
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  display: flex;
+  flex-direction: column;
+  padding: 2vw;
+}
+
+.overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-title {
+  font-size: 1.5vw;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.loot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+
+.loot-cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.loot-cell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(120, 20, 117, 0.5) 25%,
+    rgba(89, 191, 212, 0.6) 51%,
+    rgba(245, 245, 250, 0.7) 80%,
+    transparent 100%
+  );
+  transform: translateX(-150%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.loot-cell.shimmer::after {
+  animation: shimmer 1s ease-out forwards;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.loot-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.4s;
+}
+
+.loot-cell .loot-reveal {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.loot-cell .loot-reveal.shown {
+  opacity: 1;
+}
+
+.loot-cell.revealed {
+  cursor: pointer;
+}
+
+/* ── Item card ── */
+.item-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22vw;
+  background: #F5F0E8;
+  border-radius: 16px;
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  overflow: hidden;
+  color: #1a1a1a;
+}
+
+.item-card.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.item-card-body {
+  padding: 1.6vw 1.4vw 1.2vw;
+}
+
+.item-card-title {
+  font-size: 1.6vw;
+  font-weight: 800;
+  margin-bottom: 0.5vw;
+}
+
+.item-card-desc {
+  font-size: 0.95vw;
+  line-height: 1.4;
+  margin-bottom: 0.6vw;
+}
+
+.item-card-from {
+  font-size: 0.85vw;
+  opacity: 0.5;
+}
+
+.item-card-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: #E0D9CE;
+  text-align: center;
+  font-size: 0.95vw;
+  font-weight: 600;
+}
+
+.item-card-footer span {
+  padding: 0.6vw 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3vw;
+}
+
+.weight-icon {
+  width: 1vw;
+  height: 1vw;
+}
+
+.item-card-footer span:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
