@@ -9,9 +9,13 @@
 <body>
 
   <div class="centered">
-    <div class="scene">
+    <div class="scene dimmed" id="scene">
       <img src="image 22.png" alt="">
       <div class="hotspot" data-label="Обыскать" style="left:44%;top:36%;width:36%;height:28%"></div>
+    </div>
+    <div class="welcome-screen" id="welcomeScreen" role="dialog" aria-labelledby="welcomeTitle">
+      <p class="welcome-text" id="welcomeTitle">Рейдер, найди свой подарок</p>
+      <button type="button" class="welcome-btn" id="welcomeBtn">Искать</button>
     </div>
     <div class="tooltip" id="tooltip">Обыскать</div>
     <div class="item-card" id="itemCard">
@@ -41,6 +45,7 @@
     </div>
   </div>
 
+  <audio id="bgMusic" src="bg-music.mp3" loop preload="auto"></audio>
   <script src="js/main.js"></script>
 </body>
 </html>
